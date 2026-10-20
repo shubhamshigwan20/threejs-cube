@@ -2,10 +2,12 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 export default function SpinningCube() {
-  const mountRef = useRef(null);
+  const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mount = mountRef.current;
+    if (!mount) return;
+
     const width = mount.clientWidth;
     const height = mount.clientHeight;
 
@@ -25,7 +27,7 @@ export default function SpinningCube() {
     scene.add(cube);
 
     // Animation loop
-    const animate = (time) => {
+    const animate = (time: number) => {
       cube.rotation.x = time / 2000;
       cube.rotation.y = time / 1000;
       renderer.render(scene, camera);
